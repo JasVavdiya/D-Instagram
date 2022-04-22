@@ -1,10 +1,11 @@
 import Decentragram from '../abis/Decentragram.json'
 import React, { Component } from 'react';
-import Identicon from 'identicon.js';
 import Navbar from './Navbar'
+import Loading from './Sppiner'
 import Main from './Main'
 import Web3 from 'web3';
 import './App.css';
+import detectEthereumProvider from "@metamask/detect-provider";
 
 //Declare IPFS
 const ipfsClient = require('ipfs-http-client')
@@ -12,22 +13,38 @@ const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' 
 
 class App extends Component {
 
-  async componentWillMount() {
+  async componentDidMount() {
     await this.loadWeb3()
     await this.loadBlockchainData()
+    await window.ethereum.on('accountsChanged', (accounts)=> {
+      window.location.reload(false);
+    })
   }
 
   async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum)
-      await window.ethereum.enable()
+    // if (window.ethereum) {
+    //   window.web3 = new Web3(window.ethereum)
+    //   await window.ethereum.enable()
+    // }
+    // else if (window.web3) {
+    //   window.web3 = new Web3(window.web3.currentProvider)
+    // }
+    // else {
+    //   window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+    // }
+
+    const provider = await detectEthereumProvider();
+
+    if (provider) {
+      // setAccountListener(provider);
+      window.web3 = new Web3(provider)
+      provider.request({ method: "eth_requestAccounts" });
+
+      
+    } else {
+      console.error("Please install MetaMask!");
     }
-    else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider)
-    }
-    else {
-      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-    }
+
   }
 
   async loadBlockchainData() {
@@ -86,17 +103,19 @@ class App extends Component {
         return
       }
 
-        this.setState({ loading: true })
-        this.state.decentragram.methods.uploadImage(result[0].hash, description).send({ from: this.state.account }).on('transactionHash', (hash) => {
-          this.setState({ loading: false })
-      })
+        this.setState({ loading: true });
+        this.state.decentragram.methods.uploadImage(result[0].hash, description).send({ from: this.state.account }).on('confirmation', (reciept)=>{
+          this.setState({ loading: false });
+          window.location.reload();
+        })
     })
   }
 
   tipImageOwner(id, tipAmount) {
-    this.setState({ loading: true })
-    this.state.decentragram.methods.tipImgOwner(id).send({ from: this.state.account, value: tipAmount }).on('transactionHash', (hash) => {
-      this.setState({ loading: false })
+    this.setState({ loading: true });
+    this.state.decentragram.methods.tipImgOwner(id).send({ from: this.state.account, value: tipAmount }).on('confirmation',  (reciept)=>{
+      this.setState({ loading: false });
+      window.location.reload();
     })
   }
 
@@ -116,10 +135,12 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div >
+        <div>
         <Navbar account={this.state.account} />
+        </div>
         { this.state.loading
-          ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
+          ? <Loading/>
           : <Main
               images={this.state.images}
               captureFile={this.captureFile}
