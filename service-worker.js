@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/decentragram/precache-manifest.3ba530dd12758273077abfa47f397ea2.js"
+  "/D-Instagram/precache-manifest.b4ceaef1b9793cdc8687b4c7a30fb92e.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/decentragram/index.html", {
+workbox.routing.registerNavigationRoute("/D-Instagram/index.html", {
   
   blacklist: [/^\/_/,/\/[^/]+\.[^/]+$/],
 });
