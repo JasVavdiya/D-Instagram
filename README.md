@@ -4,6 +4,6 @@ This is  prototype not fully functional using tech like Web3.js , Truffle , IPFS
 
 If you want to chack D-instagram Click 
 
-Note : It currently deployed on Ropstan Test Net Work
+Note : It currently deployed on Ropstan Test NetWork
 
 Project Link : https://jasvavdiya.github.io/D-Instagram/
