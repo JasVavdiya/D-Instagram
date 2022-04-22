@@ -1,7 +1,7 @@
 {
-  "name": "decentragram",
+  "name": "D-instagram",
   "version": "0.1.0",
-  "description": "des..",
+  "description": "D-instagram is decentralaize instagram (DApp) base on ethereum. This is  prototype not fully functional using tech like Web3.js , Truffle , IPFS , Metamask , Solidity , React.js , JavaScript , HTML , CSS , Neumorphism ",
   "author": "jash2212004@gmail.com",
   "dependencies": {
     "@metamask/detect-provider": "^1.2.0",
@@ -27,7 +27,7 @@
     "truffle": "5.0.5",
     "web3": "1.0.0-beta.55"
   },
-  "homepage": "http://JasVavdiya.github.io/decentragram",
+  "homepage": "http://JasVavdiya.github.io/D-Instagram",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

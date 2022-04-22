@@ -16,7 +16,7 @@ class Navbar extends Component {
           rel="noopener noreferrer"
         >
           <img src={photo} width="30" height="30" className="d-inline-block align-top" alt=""/>
-          Decentragram
+          D-Instagram
         </Title>
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">

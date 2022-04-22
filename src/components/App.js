@@ -92,7 +92,7 @@ class App extends Component {
     }
   }
 
-  uploadImage = description => {
+   uploadImage = (description) => {
     console.log("Submitting file to ipfs...")
 
     //adding file to the IPFS
@@ -111,7 +111,7 @@ class App extends Component {
     })
   }
 
-  tipImageOwner(id, tipAmount) {
+  async tipImageOwner(id, tipAmount) {
     this.setState({ loading: true });
     this.state.decentragram.methods.tipImgOwner(id).send({ from: this.state.account, value: tipAmount }).on('confirmation',  (reciept)=>{
       this.setState({ loading: false });
